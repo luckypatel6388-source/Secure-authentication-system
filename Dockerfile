@@ -1,22 +1,21 @@
-# 1. Base Image: Use official lightweight Python image
+# 1. Base Image: Official lightweight Python image
 FROM python:3.11-slim
 
 # 2. Environment Configurations
-# Prevents Python from writing .pyc files & keeps logs unbuffered (shows instantly in terminal)
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
-# 3. Set Working Directory inside the container
+# 3. Set Working Directory
 WORKDIR /app
 
-# 4. Install System Dependencies (Needed for MySQL / C extensions)
+# 4. Install System Dependencies (Replaced MySQL with Postgres libpq-dev)
 RUN apt-get update && apt-get install -y --no-install-recommends \
     build-essential \
-    default-libmysqlclient-dev \
+    libpq-dev \
     curl \
     && rm -rf /var/lib/apt/lists/*
 
-# 5. Copy requirements first to leverage Docker layer caching
+# 5. Copy requirements first for Docker layer caching
 COPY requirements.txt /app/requirements.txt
 
 # 6. Install Python packages
@@ -28,5 +27,5 @@ COPY . /app/
 # 8. Expose Web Port
 EXPOSE 10000
 
-# 9. Startup Command to launch FastAPI app using Uvicorn
+# 9. Startup Command for FastAPI
 CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]
