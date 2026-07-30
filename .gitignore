@@ -1,0 +1,27 @@
+# Byte-compiled / optimized / DLL files (Python compiled files)
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+env/
+.venv/
+
+# Environment Variables & Secrets (CRITICAL: Never commit your real secrets!)
+.env
+.env.local
+*.pem
+
+# Logging Streams
+logs/
+*.log
+
+# IDE & Editor Settings
+.vscode/
+.idea/
+*.swp
+
+# Docker & OS System Files
+.DS_Store
+Thumbs.db
