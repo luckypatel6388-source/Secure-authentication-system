@@ -31,11 +31,14 @@ class Settings(BaseSettings):
 
     #Google api key
     GOOGLE_API_KEY: str = "key"
+    DATABASE_URL:str ="url"
 
-    @property
+    """@property
     def ASYNC_DATABASE_URL(self) -> str:
-        return f"postgresql+asyncpg://{self.MYSQL_USER}:{self.MYSQL_PASSWORD}@{self.MYSQL_HOST}:{self.MYSQL_PORT}/{self.MYSQL_DB}"
+        return DATABASE_URL"""
+#f"postgresql+asyncpg://{self.MYSQL_USER}:{self.MYSQL_PASSWORD}@{self.MYSQL_HOST}:{self.MYSQL_PORT}/{self.MYSQL_DB}"
 
+    
     @property
     def RESOLVED_REDIS_URL(self) -> str:
         if self.REDIS_URL:

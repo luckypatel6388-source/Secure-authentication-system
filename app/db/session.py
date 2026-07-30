@@ -5,7 +5,7 @@ from app.core.config import settings
 
 # Create Async Engine for MySQL
 engine = create_async_engine(
-    settings.ASYNC_DATABASE_URL,
+    settings.DATABASE_URL,
     echo=settings.DEBUG, #for dev keep it true but during deployment/production change it to false
     pool_pre_ping=True,  # Verifies connection health before executing queries
     pool_size=10,
