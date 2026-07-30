@@ -9,3 +9,4 @@ starlette
 pydantic
 fastapi
 uvicorn[standard]
+asyncpg==0.30.0
