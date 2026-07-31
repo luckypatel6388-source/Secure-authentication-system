@@ -10,7 +10,7 @@ from app.logger import setup_logging, get_module_logger
 from app.database import init_db, close_db
 from app.db.session import get_db
 
-from app.db import schemas
+from app.db.schemas import UserCreate,UserBase,UserResponse,UserUpdate
 from app.db import models
 from app.crud import get_user_by_email,create_user
 from fastapi.security import OAuth2PasswordRequestForm
@@ -123,8 +123,8 @@ async def health_check(
 
     return response_payload
 
-@app.post("/register",response_model=schemas.UserCreate)
-async def user_register(user:schemas.UserCreate,db:AsyncSession=Depends(get_db)): #type:ignore
+@app.post("/register",response_model=UserResponse)
+async def user_register(user:UserCreate,db:AsyncSession=Depends(get_db)):
     existing_user= await get_user_by_email(db=db,email=user.email)
     
     if existing_user:
@@ -150,7 +150,7 @@ async def user_login(form_data:OAuth2PasswordRequestForm=Depends(),
     access_token= create_access_token(data={"sub": user.email})
     return {"access_token": access_token, "token_type": "bearer"}
     
-@app.get("/login/userprofile",response_model=schemas.UserResponse)
+@app.get("/login/userprofile",response_model=UserResponse)
 async def user_profile(current_user=Depends(get_current_user)):
     
     return current_user
