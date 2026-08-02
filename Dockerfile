@@ -28,4 +28,4 @@ COPY . /app/
 EXPOSE 10000
 
 # 9. Startup Command for FastAPI
-CMD ["uvicorn", "app.main2:app", "--host", "0.0.0.0", "--port", "10000"]
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "10000"]
