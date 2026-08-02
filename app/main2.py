@@ -73,6 +73,11 @@ oauth.register(
 @app.get("/auth/login",tags=["Google authentication"])
 async def login(request: Request):
     redirect_uri = request.url_for("auth_callback")
+
+    # If deployed on Render (or behind proxy), force HTTPS scheme
+    if "onrender.com" in str(request.base_url) or request.headers.get("x-forwarded-proto") == "https":
+        redirect_uri = str(redirect_uri).replace("http://", "https://")
+        
     return await oauth.google.authorize_redirect(request, redirect_uri)
 #first line is the return address to web,second line sends user to google sign page 
 
